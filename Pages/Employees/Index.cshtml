@@ -1,0 +1,59 @@
+@page
+@using System.Reflection
+@model EmployeeApp.Pages.Employees.Index
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center mb-3">List of Employees</h2>
+<div class="text-center mb-3">
+    <a  class="btn btn-primary mb-3" href="/Employees/Create">Create New</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Joining Date</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model.Employees)
+            {
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@(employee.First_Name+" "+employee.Last_Name)</td>
+                    <td>@employee.Department</td>
+                    <td>@employee.JoiningDate.ToString("yyyy-MM-dd")</td>
+                    <td>@employee.Email</td>
+                    <td style="white-space:nowrap">
+                        <a class="btn btn-primary btn-sm" href="/Employees/Edit?Id=@employee.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="/Employees/Delete?Id=@employee.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+           
+
+    </table>
+
+    <nav aria-label="Employee pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                <a class="page-link" href="?pageNumber=@(Model.PageNumber - 1)">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                    <a class="page-link" href="?pageNumber=@i">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="?pageNumber=@(Model.PageNumber + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

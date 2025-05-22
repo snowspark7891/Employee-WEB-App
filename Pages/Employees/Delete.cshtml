@@ -1,0 +1,33 @@
+@page
+@model EmployeeApp.Pages.Employees.Delete
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+
+<div class="mx-auto rounded border p-4" style="width: 400px;">
+    <h2 class="text-center mb-3"> Delete Employee</h2>
+    <hr/>
+    <p>
+        Are You Sure to Delete This Employee ? 
+    </p>
+    <p> Employee ID = @Request.Query["Id"]</p>
+    
+    <hr/>
+    <form method="post">
+        <input type="hidden" name="Id" value="@Request.Query["Id"]" />
+        <div class="row mb-3">
+            <div class="offset-sm-4 col-sm-4 d-grid">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div> 
+        </div>
+        <div class="row mb-3">
+            <div class="offset-sm-4 col-sm-4 d-grid"></div>
+                <a href="/Employees/Index" class="btn btn-outline-primary" role="button">Cancel</a>
+            </div>
+        </div>
+    </form>
+
+    
+</div>

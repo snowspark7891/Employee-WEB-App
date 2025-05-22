@@ -1,0 +1,71 @@
+@page
+@model EmployeeApp.Pages.Employees.Edit
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+     <div class="col-md-8 mx-auto rounded border p-4">
+        <h4 class="text-center mb-3">Edit Employee</h4>
+        <form method="post">
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label text-end">Id</label>
+                <div class="col-sm-8">
+                    <input asp-for="Id" readonly class="form-control-plaintext" />
+                    
+                </div>
+            </div>
+            
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label text-end">First Name *</label>
+                <div class="col-sm-8">
+                    <input asp-for="First_Name" class="form-control" />
+                    <span asp-validation-for="First_Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label text-end">Last Name *</label>
+                <div class="col-sm-8">
+                    <input asp-for="Last_Name" class="form-control" />
+                    <span asp-validation-for="Last_Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label text-end">Department *</label>
+                <div class="col-sm-8">
+                    <input asp-for="Department" class="form-control" />
+                    <span asp-validation-for="Department" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label text-end">Email *</label>
+                <div class="col-sm-8">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label text-end">Joining Date *</label>
+                <div class="col-sm-8">
+                    <input asp-for="JoiningDate" class="form-control" />
+                    <span asp-validation-for="JoiningDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="offset-sm-4 col-sm-4 d-grid">
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </div>
+                <div class="col-sm-4 d-grid">
+                    <a class="btn btn-outline-primary w-100" href="/Employees/Index" role="button">Cancel</a>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
