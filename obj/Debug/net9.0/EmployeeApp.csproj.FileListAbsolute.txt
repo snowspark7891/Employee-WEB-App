@@ -144,3 +144,4 @@ c:\Users\somes\OneDrive\Desktop\EmployeeApp\bin\Debug\net9.0\runtimes\win\lib\ne
 c:\Users\somes\OneDrive\Desktop\EmployeeApp\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Security.Cryptography.Pkcs.dll
 c:\Users\somes\OneDrive\Desktop\EmployeeApp\obj\Debug\net9.0\EmployeeApp.csproj.AssemblyReference.cache
 c:\Users\somes\OneDrive\Desktop\EmployeeApp\obj\Debug\net9.0\Employee.2905E044.Up2Date
+c:\Users\somes\OneDrive\Desktop\EmployeeApp\obj\Debug\net9.0\EmployeeApp.sourcelink.json

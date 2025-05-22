@@ -51,7 +51,8 @@ namespace EmployeeApp.Pages.Employees
                         Last_Name = reader.GetString(2),
                         Department = reader.GetString(3),
                         JoiningDate = DateOnly.FromDateTime(reader.GetDateTime(4)),
-                        Email = reader.GetString(5)
+                        Email = reader.GetString(5),
+                        ProfilePicture = reader.IsDBNull(6) ? null : reader.GetString(6)
                     };
                     Employees.Add(employee);
                 }
@@ -75,6 +76,7 @@ namespace EmployeeApp.Pages.Employees
 
         public DateOnly JoiningDate { get; set; }
         public required string Email { get; set; }
+        public string? ProfilePicture { get; set; } // New property
 
     }
 }

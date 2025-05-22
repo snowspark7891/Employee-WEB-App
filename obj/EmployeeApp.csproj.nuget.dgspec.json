@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\EmployeeApp.csproj": {}
+    "c:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\EmployeeApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\EmployeeApp.csproj": {
+    "c:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\EmployeeApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\EmployeeApp.csproj",
+        "projectUniqueName": "c:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\EmployeeApp.csproj",
         "projectName": "EmployeeApp",
-        "projectPath": "C:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\EmployeeApp.csproj",
+        "projectPath": "c:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\EmployeeApp.csproj",
         "packagesPath": "C:\\Users\\somes\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\obj\\",
+        "outputPath": "c:\\Users\\somes\\OneDrive\\Desktop\\EmployeeApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Microsoft\\SDK INstaller\\Microsoft Visual Studio\\Shared\\NuGetPackages"

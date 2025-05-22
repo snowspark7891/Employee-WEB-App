@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace EmployeeApp.Pages.Employees
 {
@@ -34,6 +36,11 @@ namespace EmployeeApp.Pages.Employees
         public required string Email { get; set; } = "";
 
 
+        [BindProperty]
+        public string? ProfilePicture { get; set; }
+        [BindProperty]
+        public IFormFile? ProfilePictureFile { get; set; }
+
         public string ErrorMessage { get; set; } = "";
         public void OnGet(int Id)
         {
@@ -47,9 +54,6 @@ namespace EmployeeApp.Pages.Employees
                 command.Parameters.AddWithValue("@Id", Id);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-
-
-
                     if (reader.Read())
                     {
                         Id = reader.GetInt32(0);
@@ -58,14 +62,13 @@ namespace EmployeeApp.Pages.Employees
                         Department = reader.GetString(3);
                         JoiningDate = DateOnly.FromDateTime(reader.GetDateTime(4));
                         Email = reader.GetString(5);
+                        ProfilePicture = reader.IsDBNull(6) ? null : reader.GetString(6);
                     }
                     else
                     {
                         Response.Redirect("/Employees/Index");
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -80,11 +83,32 @@ namespace EmployeeApp.Pages.Employees
             {
                 try
                 {
-                    // Save the employee to the database
+                    string? profilePicPath = ProfilePicture;
+                    var imagesDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                    if (!Directory.Exists(imagesDir))
+                    {
+                        Directory.CreateDirectory(imagesDir);
+                    }
+
+                    if (ProfilePictureFile != null && ProfilePictureFile.Length > 0)
+                    {
+                        var fileName = Guid.NewGuid() + Path.GetExtension(ProfilePictureFile.FileName);
+                        var filePath = Path.Combine(imagesDir, fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            ProfilePictureFile.CopyTo(stream);
+                        }
+                        profilePicPath = "/images/" + fileName;
+                    }
+                    else if (string.IsNullOrEmpty(profilePicPath))
+                    {
+                        profilePicPath = $"https://ui-avatars.com/api/?name={Uri.EscapeDataString(First_Name + " " + Last_Name)}&background=random&rounded=true";
+                    }
+
                     string connectionString = "Server=MI_BOOK_SOMESH\\SQLEXPRESS;Database=employeeDb;Trusted_Connection=true;TrustServerCertificate=true";
                     using SqlConnection connection = new SqlConnection(connectionString);
                     connection.Open();
-                    string query = "UPDATE employees SET First_Name = @First_Name, Last_Name = @Last_Name, Department = @Department, Joining_Date = @JoiningDate, Email = @Email WHERE employee_id = @Id";
+                    string query = "UPDATE employees SET First_Name = @First_Name, Last_Name = @Last_Name, Department = @Department, Joining_Date = @JoiningDate, Email = @Email, ProfilePicture = @ProfilePicture WHERE employee_id = @Id";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Id", Id);
                     command.Parameters.AddWithValue("@First_Name", First_Name);
@@ -92,10 +116,10 @@ namespace EmployeeApp.Pages.Employees
                     command.Parameters.AddWithValue("@Department", Department);
                     command.Parameters.AddWithValue("@JoiningDate", JoiningDate.ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue("@Email", Email);
+                    command.Parameters.AddWithValue("@ProfilePicture", (object?)profilePicPath ?? DBNull.Value);
 
                     command.ExecuteNonQuery();
 
-                    // Redirect to the index page after saving
                     Response.Redirect("/Employees/Index");
                 }
                 catch (System.Exception ex)
@@ -106,7 +130,6 @@ namespace EmployeeApp.Pages.Employees
             }
             else
             {
-                // Handle validation errors
                 ErrorMessage = "Please correct the errors and try again.";
             }
         }
